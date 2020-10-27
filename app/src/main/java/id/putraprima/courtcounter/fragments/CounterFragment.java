@@ -33,6 +33,13 @@ public class CounterFragment extends Fragment {
         mViewModels = new ViewModelProvider(this).get(CounterViewModels.class);
         binding.setCounterViewModel(mViewModels);
         binding.setLifecycleOwner(this);
+        mViewModels.scoreMutableLiveData.observe(getViewLifecycleOwner(), new Observer<Score>() {
+            @Override
+            public void onChanged(Score score) {
+                binding.txtScoreHome.setText(Integer.toString(score.getHomeScore()));
+                binding.txtScoreAway.setText(Integer.toString(score.getAwayScore()));
+            }
+        });
         return binding.getRoot();
     }
 }
